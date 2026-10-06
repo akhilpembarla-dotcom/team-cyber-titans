@@ -1,0 +1,2321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MediDesk - Secure Clinic Management</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4f7fb;
+    color: #172033;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    height: 70px;
+    background: white;
+    border-bottom: 1px solid #e5eaf2;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 35px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #1769e0;
+}
+
+.logo span {
+    color: #172033;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* ================= LANDING ================= */
+
+.landing {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.hero {
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.hero h1 {
+    font-size: 52px;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: #1769e0;
+}
+
+.hero p {
+    color: #657084;
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.hero-card {
+    background: white;
+    border-radius: 25px;
+    padding: 40px;
+    box-shadow: 0 20px 50px rgba(30, 70, 120, .12);
+}
+
+.health-icon {
+    font-size: 100px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.feature-mini {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f5f8fd;
+    border-radius: 12px;
+    margin-top: 12px;
+}
+
+.feature-mini b {
+    display: block;
+}
+
+/* ================= BUTTONS ================= */
+
+.btn {
+    border: none;
+    border-radius: 8px;
+    padding: 12px 20px;
+    font-weight: bold;
+    transition: .2s;
+}
+
+.btn-primary {
+    background: #1769e0;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #0d56c4;
+}
+
+.btn-secondary {
+    background: white;
+    color: #1769e0;
+    border: 1px solid #1769e0;
+}
+
+.btn-danger {
+    background: #e53935;
+    color: white;
+}
+
+.btn-success {
+    background: #1c9b62;
+    color: white;
+}
+
+.btn-small {
+    padding: 7px 12px;
+    font-size: 13px;
+}
+
+/* ================= AUTH ================= */
+
+.auth-container {
+    min-height: calc(100vh - 70px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.auth-card {
+    width: 420px;
+    max-width: 100%;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(30, 70, 120, .1);
+}
+
+.auth-card h2 {
+    margin-bottom: 8px;
+}
+
+.auth-card > p {
+    color: #778196;
+    margin-bottom: 25px;
+}
+
+.form-group {
+    margin-bottom: 17px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    border: 1px solid #d9dfeb;
+    padding: 12px;
+    border-radius: 8px;
+    outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #1769e0;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 20px;
+    color: #68748a;
+}
+
+.auth-footer a {
+    color: #1769e0;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* ================= APP ================= */
+
+.app {
+    display: none;
+}
+
+.layout {
+    display: flex;
+    min-height: calc(100vh - 70px);
+}
+
+.sidebar {
+    width: 240px;
+    background: #09264b;
+    color: white;
+    padding: 25px 15px;
+    flex-shrink: 0;
+}
+
+.sidebar-user {
+    background: rgba(255,255,255,.08);
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #1769e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.sidebar-user small {
+    opacity: .7;
+}
+
+.nav-item {
+    padding: 13px 15px;
+    border-radius: 8px;
+    margin: 5px 0;
+    cursor: pointer;
+    color: #d9e4f5;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background: #1769e0;
+    color: white;
+}
+
+.logout {
+    margin-top: 30px;
+}
+
+.main {
+    flex: 1;
+    padding: 30px;
+    overflow-x: auto;
+}
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    font-size: 28px;
+}
+
+.page-title p {
+    color: #778196;
+    margin-top: 5px;
+}
+
+/* ================= CARDS ================= */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #e8edf5;
+}
+
+.stat-card .number {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.stat-card small {
+    color: #778196;
+}
+
+/* ================= CONTENT ================= */
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 14px;
+    padding: 22px;
+    border: 1px solid #e8edf5;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    margin-bottom: 18px;
+}
+
+.quick-actions {
+    display: grid;
+    gap: 10px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 14px 10px;
+    border-bottom: 1px solid #edf0f5;
+    text-align: left;
+    font-size: 14px;
+}
+
+th {
+    color: #69758a;
+    font-size: 13px;
+}
+
+.status {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.confirmed {
+    background: #dcf8e9;
+    color: #137348;
+}
+
+.pending {
+    background: #fff3cd;
+    color: #896b00;
+}
+
+.cancelled {
+    background: #fde0df;
+    color: #b32622;
+}
+
+.completed {
+    background: #e0ecff;
+    color: #1769e0;
+}
+
+/* ================= DOCTORS ================= */
+
+.doctor-list {
+    display: grid;
+    gap: 12px;
+}
+
+.doctor {
+    border: 1px solid #e2e7ef;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.doctor-info {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.doctor-avatar {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #e8f1ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #1769e0;
+}
+
+/* ================= PROFILE ================= */
+
+.profile {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 30px;
+}
+
+.profile-avatar {
+    width: 130px;
+    height: 130px;
+    background: #1769e0;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 45px;
+    font-weight: bold;
+}
+
+/* ================= MODAL ================= */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-box {
+    background: white;
+    width: 500px;
+    max-width: 100%;
+    border-radius: 16px;
+    padding: 30px;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.close {
+    cursor: pointer;
+    font-size: 25px;
+}
+
+/* ================= TOAST ================= */
+
+.toast {
+    position: fixed;
+    right: 25px;
+    bottom: 25px;
+    background: #172033;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: none;
+    z-index: 2000;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 900px) {
+    .hero {
+        grid-template-columns: 1fr;
+    }
+
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        width: 200px;
+    }
+}
+
+@media(max-width: 600px) {
+    header {
+        padding: 0 15px;
+    }
+
+    .landing {
+        padding: 25px;
+    }
+
+    .hero h1 {
+        font-size: 38px;
+    }
+
+    .layout {
+        display: block;
+    }
+
+    .sidebar {
+        width: 100%;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .profile {
+        grid-template-columns: 1fr;
+    }
+
+    .main {
+        padding: 20px;
+    }
+
+    table {
+        min-width: 700px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header>
+    <div class="logo">✚ Medi<span>Desk</span></div>
+
+    <div class="header-right" id="headerButtons">
+        <button class="btn btn-secondary" onclick="showAuth('login')">
+            Login
+        </button>
+
+        <button class="btn btn-primary" onclick="showAuth('register')">
+            Register
+        </button>
+    </div>
+</header>
+
+
+<!-- ================= LANDING PAGE ================= -->
+
+<section class="landing" id="landing">
+
+    <div class="hero">
+
+        <div>
+            <h1>
+                Your Health.<br>
+                <span>Our Priority.</span>
+            </h1>
+
+            <p>
+                MediDesk is a secure clinic management platform
+                for patients, doctors and administrators.
+                Book appointments, manage records and simplify
+                clinic operations.
+            </p>
+
+            <div class="hero-buttons">
+                <button class="btn btn-primary"
+                        onclick="showAuth('register')">
+                    Get Started
+                </button>
+
+                <button class="btn btn-secondary"
+                        onclick="showAuth('login')">
+                    Login
+                </button>
+            </div>
+        </div>
+
+        <div class="hero-card">
+
+            <div class="health-icon">🩺</div>
+
+            <div class="feature-mini">
+                <span>📅</span>
+                <div>
+                    <b>Easy Appointments</b>
+                    <small>Book and manage appointments</small>
+                </div>
+            </div>
+
+            <div class="feature-mini">
+                <span>🔐</span>
+                <div>
+                    <b>Secure Access</b>
+                    <small>Role-based authentication</small>
+                </div>
+            </div>
+
+            <div class="feature-mini">
+                <span>📋</span>
+                <div>
+                    <b>Medical Records</b>
+                    <small>Synthetic patient records</small>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= AUTH ================= -->
+
+<section class="auth-container" id="authPage" style="display:none">
+
+    <div class="auth-card">
+
+        <h2 id="authTitle">Welcome Back</h2>
+
+        <p id="authSubtitle">
+            Login to your MediDesk account
+        </p>
+
+        <form id="authForm">
+
+            <div class="form-group" id="nameGroup" style="display:none">
+                <label>Full Name</label>
+                <input id="name" type="text" placeholder="John Doe">
+            </div>
+
+            <div class="form-group">
+                <label>Email Address</label>
+                <input id="email"
+                       type="email"
+                       placeholder="john@example.com"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input id="password"
+                       type="password"
+                       placeholder="••••••••"
+                       required>
+            </div>
+
+            <div class="form-group" id="roleGroup" style="display:none">
+                <label>Register As</label>
+
+                <select id="registerRole">
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary"
+                    style="width:100%"
+                    type="submit"
+                    id="authButton">
+                Login
+            </button>
+
+        </form>
+
+        <div class="auth-footer">
+
+            <span id="authSwitchText">
+                Don't have an account?
+            </span>
+
+            <a onclick="toggleAuth()"
+               id="authSwitch">
+                Register
+            </a>
+
+            <br><br>
+
+            <a onclick="showLanding()">← Back to Home</a>
+
+        </div>
+
+        <div style="margin-top:20px;background:#f4f7fb;padding:15px;border-radius:8px;font-size:12px">
+
+            <b>Demo Accounts</b><br><br>
+
+            Patient:
+            john@example.com / patient123<br>
+
+            Doctor:
+            doctor@example.com / doctor123<br>
+
+            Admin:
+            admin@medidesk.demo / admin123
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= APPLICATION ================= -->
+
+<section class="app" id="app">
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-user">
+
+                <div class="avatar" id="sideAvatar">
+                    JD
+                </div>
+
+                <b id="sideName">
+                    John Doe
+                </b>
+
+                <br>
+
+                <small id="sideRole">
+                    Patient
+                </small>
+
+            </div>
+
+            <div id="navigation"></div>
+
+            <div class="nav-item logout"
+                 onclick="logout()">
+                🚪 Logout
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main" id="mainContent"></main>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MODAL ================= -->
+
+<div class="modal" id="modal">
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <h2 id="modalTitle">
+                Book Appointment
+            </h2>
+
+            <span class="close"
+                  onclick="closeModal()">
+                ×
+            </span>
+
+        </div>
+
+        <div id="modalContent"></div>
+
+    </div>
+
+</div>
+
+
+<div class="toast" id="toast"></div>
+
+
+<script>
+
+/* =====================================================
+   SYNTHETIC DATA
+===================================================== */
+
+const doctors = [
+    {
+        id: 1,
+        name: "Dr. Sarah Wilson",
+        specialty: "General Physician",
+        email: "doctor@example.com"
+    },
+    {
+        id: 2,
+        name: "Dr. Michael Brown",
+        specialty: "Cardiologist",
+        email: "michael@medidesk.demo"
+    },
+    {
+        id: 3,
+        name: "Dr. Emily Davis",
+        specialty: "Dermatologist",
+        email: "emily@medidesk.demo"
+    }
+];
+
+let users = JSON.parse(localStorage.getItem("medidesk_users")) || [
+
+    {
+        id: 1,
+        name: "John Doe",
+        email: "john@example.com",
+        password: "patient123",
+        role: "patient"
+    },
+
+    {
+        id: 2,
+        name: "Dr. Sarah Wilson",
+        email: "doctor@example.com",
+        password: "doctor123",
+        role: "doctor"
+    },
+
+    {
+        id: 3,
+        name: "Admin User",
+        email: "admin@medidesk.demo",
+        password: "admin123",
+        role: "admin"
+    }
+
+];
+
+let appointments =
+    JSON.parse(localStorage.getItem("medidesk_appointments")) || [
+
+    {
+        id: 1,
+        patient: "John Doe",
+        doctor: "Dr. Sarah Wilson",
+        date: "2026-10-10",
+        time: "10:30",
+        reason: "General Checkup",
+        status: "Confirmed"
+    }
+
+];
+
+let records = [
+
+    {
+        date: "2026-09-20",
+        doctor: "Dr. Sarah Wilson",
+        diagnosis: "Common Cold",
+        notes: "Rest and stay hydrated."
+    },
+
+    {
+        date: "2026-08-15",
+        doctor: "Dr. Michael Brown",
+        diagnosis: "Vitamin Deficiency",
+        notes: "Take prescribed supplements."
+    }
+
+];
+
+
+/* =====================================================
+   GLOBAL STATE
+===================================================== */
+
+let currentUser =
+    JSON.parse(localStorage.getItem("medidesk_currentUser")) || null;
+
+let currentPage = "dashboard";
+
+let authMode = "login";
+
+
+/* =====================================================
+   STORAGE
+===================================================== */
+
+function saveData() {
+
+    localStorage.setItem(
+        "medidesk_users",
+        JSON.stringify(users)
+    );
+
+    localStorage.setItem(
+        "medidesk_appointments",
+        JSON.stringify(appointments)
+    );
+
+}
+
+
+/* =====================================================
+   LANDING / AUTH
+===================================================== */
+
+function showLanding() {
+
+    document.getElementById("landing").style.display = "flex";
+    document.getElementById("authPage").style.display = "none";
+    document.getElementById("app").style.display = "none";
+
+}
+
+function showAuth(mode) {
+
+    authMode = mode;
+
+    document.getElementById("landing").style.display = "none";
+    document.getElementById("authPage").style.display = "flex";
+    document.getElementById("app").style.display = "none";
+
+    updateAuthUI();
+
+}
+
+function toggleAuth() {
+
+    authMode =
+        authMode === "login"
+        ? "register"
+        : "login";
+
+    updateAuthUI();
+
+}
+
+function updateAuthUI() {
+
+    const register =
+        authMode === "register";
+
+    document.getElementById("authTitle").textContent =
+        register
+        ? "Create Account"
+        : "Welcome Back";
+
+    document.getElementById("authSubtitle").textContent =
+        register
+        ? "Register for your MediDesk account"
+        : "Login to your MediDesk account";
+
+    document.getElementById("authButton").textContent =
+        register
+        ? "Register"
+        : "Login";
+
+    document.getElementById("nameGroup").style.display =
+        register ? "block" : "none";
+
+    document.getElementById("roleGroup").style.display =
+        register ? "block" : "none";
+
+    document.getElementById("authSwitchText").textContent =
+        register
+        ? "Already have an account?"
+        : "Don't have an account?";
+
+    document.getElementById("authSwitch").textContent =
+        register
+        ? "Login"
+        : "Register";
+
+}
+
+
+/* =====================================================
+   AUTH FORM
+===================================================== */
+
+document.getElementById("authForm")
+.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    if(authMode === "login") {
+
+        const user =
+            users.find(u =>
+                u.email === email &&
+                u.password === password
+            );
+
+        if(!user) {
+
+            toast("Invalid email or password");
+
+            return;
+
+        }
+
+        currentUser = user;
+
+        localStorage.setItem(
+            "medidesk_currentUser",
+            JSON.stringify(user)
+        );
+
+        openApplication();
+
+    } else {
+
+        const name =
+            document.getElementById("name").value.trim();
+
+        const role =
+            document.getElementById("registerRole").value;
+
+        if(!name) {
+
+            toast("Please enter your name");
+
+            return;
+
+        }
+
+        if(users.some(u => u.email === email)) {
+
+            toast("Email already registered");
+
+            return;
+
+        }
+
+        const user = {
+
+            id: Date.now(),
+
+            name,
+
+            email,
+
+            password,
+
+            role
+
+        };
+
+        users.push(user);
+
+        saveData();
+
+        currentUser = user;
+
+        localStorage.setItem(
+            "medidesk_currentUser",
+            JSON.stringify(user)
+        );
+
+        openApplication();
+
+        toast("Account created successfully");
+
+    }
+
+});
+
+
+/* =====================================================
+   APPLICATION
+===================================================== */
+
+function openApplication() {
+
+    document.getElementById("landing").style.display = "none";
+
+    document.getElementById("authPage").style.display = "none";
+
+    document.getElementById("app").style.display = "block";
+
+    document.getElementById("sideName").textContent =
+        currentUser.name;
+
+    document.getElementById("sideRole").textContent =
+        capitalize(currentUser.role);
+
+    document.getElementById("sideAvatar").textContent =
+        getInitials(currentUser.name);
+
+    createNavigation();
+
+    showPage("dashboard");
+
+}
+
+function logout() {
+
+    currentUser = null;
+
+    localStorage.removeItem(
+        "medidesk_currentUser"
+    );
+
+    showLanding();
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function createNavigation() {
+
+    let items = [];
+
+    if(currentUser.role === "patient") {
+
+        items = [
+
+            ["dashboard","🏠 Dashboard"],
+
+            ["profile","👤 My Profile"],
+
+            ["book","📅 Book Appointment"],
+
+            ["appointments","📋 My Appointments"],
+
+            ["records","🩺 Medical Records"],
+
+            ["history","🕒 Appointment History"]
+
+        ];
+
+    }
+
+    if(currentUser.role === "doctor") {
+
+        items = [
+
+            ["dashboard","🏠 Dashboard"],
+
+            ["patients","👥 My Patients"],
+
+            ["appointments","📅 Appointments"],
+
+            ["records","🩺 Medical Records"],
+
+            ["profile","👤 Profile"]
+
+        ];
+
+    }
+
+    if(currentUser.role === "admin") {
+
+        items = [
+
+            ["dashboard","🏠 Dashboard"],
+
+            ["users","👥 User Management"],
+
+            ["appointments","📅 Appointments"],
+
+            ["patients","👥 Patients"],
+
+            ["settings","⚙️ Clinic Settings"]
+
+        ];
+
+    }
+
+    document.getElementById("navigation").innerHTML =
+        items.map(item => `
+
+            <div class="nav-item"
+                 id="nav-${item[0]}"
+                 onclick="showPage('${item[0]}')">
+
+                ${item[1]}
+
+            </div>
+
+        `).join("");
+
+}
+
+
+/* =====================================================
+   PAGE ROUTING
+===================================================== */
+
+function showPage(page) {
+
+    currentPage = page;
+
+    document.querySelectorAll(".nav-item")
+    .forEach(n => n.classList.remove("active"));
+
+    const nav =
+        document.getElementById("nav-" + page);
+
+    if(nav) nav.classList.add("active");
+
+    const main =
+        document.getElementById("mainContent");
+
+    if(page === "dashboard")
+        main.innerHTML = dashboard();
+
+    else if(page === "profile")
+        main.innerHTML = profilePage();
+
+    else if(page === "book")
+        main.innerHTML = bookingPage();
+
+    else if(page === "appointments")
+        main.innerHTML = appointmentsPage();
+
+    else if(page === "records")
+        main.innerHTML = recordsPage();
+
+    else if(page === "history")
+        main.innerHTML = historyPage();
+
+    else if(page === "patients")
+        main.innerHTML = patientsPage();
+
+    else if(page === "users")
+        main.innerHTML = usersPage();
+
+    else if(page === "settings")
+        main.innerHTML = settingsPage();
+
+}
+
+
+/* =====================================================
+   PATIENT DASHBOARD
+===================================================== */
+
+function patientDashboard() {
+
+    const myAppointments =
+        appointments.filter(
+            a => a.patient === currentUser.name
+        );
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Welcome, ${currentUser.name} 👋</h1>
+
+            <p>Here's your health overview.</p>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                📅
+                <div class="number">
+                    ${myAppointments.filter(a =>
+                        a.status !== "Cancelled"
+                    ).length}
+                </div>
+                <small>Upcoming Appointments</small>
+            </div>
+
+            <div class="stat-card">
+                📋
+                <div class="number">
+                    ${myAppointments.length}
+                </div>
+                <small>Total Appointments</small>
+            </div>
+
+            <div class="stat-card">
+                🩺
+                <div class="number">
+                    ${records.length}
+                </div>
+                <small>Medical Records</small>
+            </div>
+
+            <div class="stat-card">
+                👤
+                <div class="number">80%</div>
+                <small>Profile Completion</small>
+            </div>
+
+        </div>
+
+        <div class="content-grid">
+
+            <div class="card">
+
+                <h3>Upcoming Appointments</h3>
+
+                ${appointmentTable(myAppointments)}
+
+            </div>
+
+            <div class="card">
+
+                <h3>Quick Actions</h3>
+
+                <div class="quick-actions">
+
+                    <button class="btn btn-primary"
+                            onclick="showPage('book')">
+                        📅 Book Appointment
+                    </button>
+
+                    <button class="btn btn-secondary"
+                            onclick="showPage('records')">
+                        🩺 View Medical Records
+                    </button>
+
+                    <button class="btn btn-secondary"
+                            onclick="showPage('profile')">
+                        👤 Update Profile
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   DOCTOR DASHBOARD
+===================================================== */
+
+function doctorDashboard() {
+
+    const myAppointments =
+        appointments.filter(
+            a => a.doctor === currentUser.name
+        );
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Doctor Dashboard</h1>
+
+            <p>Overview of your patients and appointments.</p>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                📅
+                <div class="number">
+                    ${myAppointments.length}
+                </div>
+                <small>Today's Appointments</small>
+            </div>
+
+            <div class="stat-card">
+                👥
+                <div class="number">24</div>
+                <small>Total Patients</small>
+            </div>
+
+            <div class="stat-card">
+                📋
+                <div class="number">2</div>
+                <small>Pending Reports</small>
+            </div>
+
+            <div class="stat-card">
+                🩺
+                <div class="number">8</div>
+                <small>Records Updated</small>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Today's Appointments</h3>
+
+            ${appointmentTable(myAppointments)}
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ADMIN DASHBOARD
+===================================================== */
+
+function adminDashboard() {
+
+    const patients =
+        users.filter(u => u.role === "patient");
+
+    const doctorCount =
+        users.filter(u => u.role === "doctor").length;
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Admin Dashboard</h1>
+
+            <p>Manage clinic operations and users.</p>
+
+        </div>
+
+        <div class="stats">
+
+            <div class="stat-card">
+                👥
+                <div class="number">
+                    ${patients.length}
+                </div>
+                <small>Total Patients</small>
+            </div>
+
+            <div class="stat-card">
+                👨‍⚕️
+                <div class="number">
+                    ${doctorCount}
+                </div>
+                <small>Total Doctors</small>
+            </div>
+
+            <div class="stat-card">
+                📅
+                <div class="number">
+                    ${appointments.length}
+                </div>
+                <small>Total Appointments</small>
+            </div>
+
+            <div class="stat-card">
+                👤
+                <div class="number">
+                    ${users.length}
+                </div>
+                <small>Total Users</small>
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Recent Appointments</h3>
+
+            ${appointmentTable(appointments)}
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   DASHBOARD ROUTER
+===================================================== */
+
+function dashboard() {
+
+    if(currentUser.role === "patient")
+        return patientDashboard();
+
+    if(currentUser.role === "doctor")
+        return doctorDashboard();
+
+    return adminDashboard();
+
+}
+
+
+/* =====================================================
+   APPOINTMENT TABLE
+===================================================== */
+
+function appointmentTable(data) {
+
+    if(!data.length) {
+
+        return `
+            <p style="color:#777">
+                No appointments found.
+            </p>
+        `;
+
+    }
+
+    return `
+
+        <div style="overflow:auto">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Patient</th>
+                    <th>Doctor</th>
+                    <th>Reason</th>
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                ${data.map(a => `
+
+                    <tr>
+
+                        <td>${a.date}</td>
+
+                        <td>${a.time}</td>
+
+                        <td>${a.patient}</td>
+
+                        <td>${a.doctor}</td>
+
+                        <td>${a.reason}</td>
+
+                        <td>
+                            <span class="status ${statusClass(a.status)}">
+                                ${a.status}
+                            </span>
+                        </td>
+
+                    </tr>
+
+                `).join("")}
+
+            </tbody>
+
+        </table>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   BOOK APPOINTMENT
+===================================================== */
+
+function bookingPage() {
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Book Appointment</h1>
+
+            <p>Select a doctor and preferred appointment time.</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>Select Doctor</h3>
+
+            <div class="doctor-list">
+
+                ${doctors.map(d => `
+
+                    <div class="doctor">
+
+                        <div class="doctor-info">
+
+                            <div class="doctor-avatar">
+                                ${getInitials(d.name)}
+                            </div>
+
+                            <div>
+
+                                <b>${d.name}</b>
+
+                                <br>
+
+                                <small>${d.specialty}</small>
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            class="btn btn-primary btn-small"
+                            onclick="openBooking(${d.id})">
+
+                            Select
+
+                        </button>
+
+                    </div>
+
+                `).join("")}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function openBooking(doctorId) {
+
+    const doctor =
+        doctors.find(d => d.id === doctorId);
+
+    document.getElementById("modalTitle").textContent =
+        "Book Appointment";
+
+    document.getElementById("modalContent").innerHTML = `
+
+        <form onsubmit="createAppointment(event, '${doctor.name}')">
+
+            <div class="form-group">
+
+                <label>Doctor</label>
+
+                <input value="${doctor.name}" disabled>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Date</label>
+
+                <input id="appointmentDate"
+                       type="date"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Time</label>
+
+                <input id="appointmentTime"
+                       type="time"
+                       required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Reason for Visit</label>
+
+                <input id="appointmentReason"
+                       placeholder="General Checkup"
+                       required>
+
+            </div>
+
+            <button class="btn btn-primary"
+                    style="width:100%">
+
+                Confirm Appointment
+
+            </button>
+
+        </form>
+
+    `;
+
+    document.getElementById("modal").style.display =
+        "flex";
+
+}
+
+
+function createAppointment(e, doctor) {
+
+    e.preventDefault();
+
+    appointments.push({
+
+        id: Date.now(),
+
+        patient: currentUser.name,
+
+        doctor,
+
+        date:
+            document.getElementById("appointmentDate").value,
+
+        time:
+            document.getElementById("appointmentTime").value,
+
+        reason:
+            document.getElementById("appointmentReason").value,
+
+        status: "Pending"
+
+    });
+
+    saveData();
+
+    closeModal();
+
+    toast("Appointment booked successfully");
+
+    showPage("appointments");
+
+}
+
+
+/* =====================================================
+   APPOINTMENTS
+===================================================== */
+
+function appointmentsPage() {
+
+    let data;
+
+    if(currentUser.role === "patient") {
+
+        data =
+            appointments.filter(
+                a => a.patient === currentUser.name
+            );
+
+    } else if(currentUser.role === "doctor") {
+
+        data =
+            appointments.filter(
+                a => a.doctor === currentUser.name
+            );
+
+    } else {
+
+        data = appointments;
+
+    }
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Appointments</h1>
+
+            <p>Manage clinic appointments.</p>
+
+        </div>
+
+        <div class="card">
+
+            ${appointmentTable(data)}
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function profilePage() {
+
+    return `
+
+        <div class="page-title">
+
+            <h1>My Profile</h1>
+
+            <p>View and update your personal information.</p>
+
+        </div>
+
+        <div class="card">
+
+            <div class="profile">
+
+                <div>
+
+                    <div class="profile-avatar">
+                        ${getInitials(currentUser.name)}
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <h2>${currentUser.name}</h2>
+
+                    <p style="color:#777;margin:8px 0 25px">
+                        ${currentUser.email}
+                    </p>
+
+                    <div class="form-group">
+
+                        <label>Full Name</label>
+
+                        <input id="profileName"
+                               value="${currentUser.name}">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Email</label>
+
+                        <input value="${currentUser.email}"
+                               disabled>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label>Role</label>
+
+                        <input value="${capitalize(currentUser.role)}"
+                               disabled>
+
+                    </div>
+
+                    <button class="btn btn-primary"
+                            onclick="updateProfile()">
+
+                        Save Changes
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+function updateProfile() {
+
+    const name =
+        document.getElementById("profileName").value;
+
+    if(!name) return;
+
+    currentUser.name = name;
+
+    const user =
+        users.find(u => u.id === currentUser.id);
+
+    if(user) user.name = name;
+
+    localStorage.setItem(
+        "medidesk_currentUser",
+        JSON.stringify(currentUser)
+    );
+
+    saveData();
+
+    document.getElementById("sideName").textContent =
+        name;
+
+    document.getElementById("sideAvatar").textContent =
+        getInitials(name);
+
+    toast("Profile updated");
+
+}
+
+
+/* =====================================================
+   MEDICAL RECORDS
+===================================================== */
+
+function recordsPage() {
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Medical Records</h1>
+
+            <p>Demo records containing synthetic patient information.</p>
+
+        </div>
+
+        <div class="card">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+                        <th>Doctor</th>
+                        <th>Diagnosis</th>
+                        <th>Notes</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${records.map(r => `
+
+                        <tr>
+
+                            <td>${r.date}</td>
+
+                            <td>${r.doctor}</td>
+
+                            <td>${r.diagnosis}</td>
+
+                            <td>${r.notes}</td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function historyPage() {
+
+    const history =
+        appointments.filter(
+            a => a.patient === currentUser.name
+        );
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Appointment History</h1>
+
+            <p>View your previous appointments.</p>
+
+        </div>
+
+        <div class="card">
+
+            ${appointmentTable(history)}
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   PATIENTS
+===================================================== */
+
+function patientsPage() {
+
+    const patients =
+        users.filter(u => u.role === "patient");
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Patients</h1>
+
+            <p>Authorized patient information.</p>
+
+        </div>
+
+        <div class="card">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${patients.map(p => `
+
+                        <tr>
+
+                            <td>${p.name}</td>
+
+                            <td>${p.email}</td>
+
+                            <td>
+                                <span class="status confirmed">
+                                    Patient
+                                </span>
+                            </td>
+
+                            <td>
+
+                                <button
+                                    class="btn btn-secondary btn-small"
+                                    onclick="viewPatient('${p.name}')">
+
+                                    View
+
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+}
+
+
+function viewPatient(name) {
+
+    const patient =
+        users.find(u => u.name === name);
+
+    alert(
+        "Synthetic Patient Profile\n\n" +
+        "Name: " + patient.name + "\n" +
+        "Email: " + patient.email + "\n" +
+        "Status: Active"
+    );
+
+}
+
+
+/* =====================================================
+   ADMIN USERS
+===================================================== */
+
+function usersPage() {
+
+    return `
+
+        <div class="page-title">
+
+            <h1>User Management</h1>
+
+            <p>Manage patients, doctors and administrators.</p>
+
+        </div>
+
+        <div class="card">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${users.map(u => `
+
+                        <tr>
+
+                            <td>${u.name}</td>
+
+                            <td>${u.email}</td>
+
+                            <td>${capitalize(u.role)}</td>
+
+                            <td>
+
+                                <span class="status confirmed">
+                                    Active
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+                    `).join("")}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   SETTINGS
+===================================================== */
+
+function settingsPage() {
+
+    return `
+
+        <div class="page-title">
+
+            <h1>Clinic Settings</h1>
+
+            <p>Administrative configuration.</p>
+
+        </div>
+
+        <div class="card">
+
+            <h3>MediDesk Configuration</h3>
+
+            <div class="form-group">
+
+                <label>Clinic Name</label>
+
+                <input value="MediDesk Clinic">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Appointment Duration</label>
+
+                <select>
+
+                    <option>30 Minutes</option>
+                    <option>45 Minutes</option>
+                    <option>60 Minutes</option>
+
+                </select>
+
+            </div>
+
+            <button class="btn btn-primary"
+                    onclick="toast('Settings saved')">
+
+                Save Settings
+
+            </button>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
+
+function closeModal() {
+
+    document.getElementById("modal").style.display =
+        "none";
+
+}
+
+function toast(message) {
+
+    const t =
+        document.getElementById("toast");
+
+    t.textContent = message;
+
+    t.style.display = "block";
+
+    setTimeout(() => {
+
+        t.style.display = "none";
+
+    }, 2500);
+
+}
+
+function getInitials(name) {
+
+    return name
+        .split(" ")
+        .map(x => x[0])
+        .join("")
+        .substring(0,2)
+        .toUpperCase();
+
+}
+
+function capitalize(text) {
+
+    return text.charAt(0).toUpperCase() +
+           text.slice(1);
+
+}
+
+function statusClass(status) {
+
+    return status.toLowerCase();
+
+}
+
+
+/* =====================================================
+   START APPLICATION
+===================================================== */
+
+if(currentUser) {
+
+    openApplication();
+
+} else {
+
+    showLanding();
+
+}
+
+</script>
+
+</body>
+</html>
